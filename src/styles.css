@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.mat-primary {
+  background-color: black;
+  color: #00ff5e;
+}
+
+.mat-accent {
+  background-color: #00ff5e;
+  color: black;
+}

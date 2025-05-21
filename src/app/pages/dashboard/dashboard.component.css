@@ -1,0 +1,88 @@
+.dashboard-container {
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.summary-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.summary-card {
+  width: 250px;
+  height: 150px; /* fixed height ensures proper centering */
+  color: white;
+  padding: 10px;
+  font-weight: 500;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
+  text-align: center;
+}
+
+mat-card-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+mat-card-title {
+  font-size: 2em; 
+  font-weight: 600;   /* bold */
+  text-align: center; /* optional for horizontal centering */
+}
+
+.metric-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-number {
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1;
+  color: #3f51b5;
+}
+
+.metric-label {
+  font-size: 1.1em;
+  margin-top: 4px;
+  color: inherit;
+}
+
+.blue-card {
+  background: #1976d2;
+}
+
+.yellow-card {
+  background: #fbc02d;
+  color: black;
+}
+
+.red-card {
+  background: #d32f2f;
+}
+
+.dashboard-section {
+  padding: 10px;
+  text-align: center;
+}
+
+.notification-card {
+  margin: 8px auto;
+  max-width: 400px;
+  padding: 10px;
+  background-color: #eeeeee;
+  color: #333;
+}
+
+mat-form-field {
+  width: 300px;
+  margin-right: 12px;
+}
