@@ -1,38 +1,76 @@
-<div class="summary-cards">
-  <mat-card class="summary-card blue-card">
-    <mat-card-title>To Be Packed</mat-card-title>
+<div class="dashboard-container">
+  <!-- Urgent Items (Red) -->
+<div class="summary-cards" *ngIf="urgentItems && urgentItems.length > 0">
+  <mat-card class="summary-card red-card" *ngFor="let item of urgentItems">
+    <mat-card-title>URGENT: {{ item.name }}</mat-card-title>
     <mat-card-content>
-      <div class="metric-center">
-        <div class="metric-number">25</div>
-        <div class="metric-label">Items</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="summary-card yellow-card">
-    <mat-card-title>To Be Shipped</mat-card-title>
-    <mat-card-content>
-      <div class="metric-center">
-        <div class="metric-number">10</div>
-        <div class="metric-label">Shipments</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="summary-card red-card">
-    <mat-card-title>Low Stock</mat-card-title>
-    <mat-card-content>
-      <div class="metric-center">
-        <div class="metric-number">4</div>
-        <div class="metric-label">Critical</div>
-      </div>
+      <div>{{ item.description }}</div>
+      <div>Qty: {{ item.quantity }}</div>
+      <div>Location: {{ item.location }}</div>
     </mat-card-content>
   </mat-card>
 </div>
 
-<mat-divider></mat-divider>
+<!-- Warning Items (Yellow) -->
+<div class="summary-cards" *ngIf="urgentItems && urgentItems.length > 0">
+  <mat-card class="summary-card yellow-card" *ngFor="let item of warningItems">
+    <mat-card-title>WARNING: {{ item.name }}</mat-card-title>
+    <mat-card-content>
+      <div>{{ item.description }}</div>
+      <div>Qty: {{ item.quantity }}</div>
+      <div>Location: {{ item.location }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-<div class="dashboard-section">
-  <h1>Recent Inventory Activity</h1>
-  <a mat-raised-button color="accent" routerLink="/items">View Inventory</a>
+  <mat-divider></mat-divider>
+
+  <div class="dashboard-section">
+    <h1>Recent Inventory Activity</h1>
+    <a mat-raised-button color="accent" routerLink="/items">View Inventory</a>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="dashboard-section">
+    <h1>Notifications</h1>
+    <ul>
+    <li *ngFor="let note of notifications$ | async">
+      <strong>{{ note.title }}</strong>
+      <div *ngIf="note.body">{{ note.body }}</div>
+      <small>{{ note.timestamp | date:'short' }}</small>
+    </li>
+  </ul>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="dashboard-section">
+    <h1>Search Inventory</h1>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchQuery" placeholder="Enter item name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="searchInventory()">Search</button>
+  </div>
+
+  <div *ngIf="searchPerformed">
+  <table class="inventory-table" *ngIf="filteredInventory.length > 0">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Location</th>
+    </tr>
+    <tr *ngFor="let item of filteredInventory">
+      <td>{{ item.name }}</td>
+      <td>{{ item.description }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.location }}</td>
+    </tr>
+  </table>
+
+  <p *ngIf="filteredInventory.length === 0" class="no-results">
+    No items found.
+  </p>
 </div>

@@ -7,14 +7,14 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:nventory-ui": "node dist/nventory-ui/server/server.mjs"
+    "serve:ssr:nventory-ui": "node dist/nventory-ui/server/server.mjs",
+    "predeploy": "ng build --configuration=production --base-href=\"https://deanna-armstrong.github.io/\"",
+    "deploy": "npx angular-cli-ghpages --dir=dist/nventory-ui --branch=main"
   },
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
-    "@angular/forms": "^19.2.0",
     "@angular/material": "^19.2.16",
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
@@ -22,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@angular/ssr": "^19.2.7",
     "express": "^4.18.2",
+    "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
