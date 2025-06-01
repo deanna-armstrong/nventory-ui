@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './api-config';
 
 export interface InventoryItem {
   name: string;
@@ -13,7 +14,7 @@ export interface InventoryItem {
   providedIn: 'root'
 })
 export class InventoryService {
-  private apiUrl = 'http://localhost:3000/inventory';  // adjust as needed
+  private apiUrl = `${API_BASE_URL}/inventory`;
 
   constructor(private http: HttpClient) {}
 

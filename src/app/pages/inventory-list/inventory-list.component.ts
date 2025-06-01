@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { API_BASE_URL } from '../../services/api-config';
 
 @Component({
   selector: 'app-inventory-list',
@@ -39,7 +40,7 @@ export class InventoryListComponent implements OnInit {
   }
 
   fetchInventory() {
-    this.http.get<any[]>('http://localhost:3000/inventory').subscribe(data => {
+    this.http.get<any[]>(`${API_BASE_URL}/inventory`).subscribe(data => {
       this.inventoryList = data;
       this.filteredInventory = data;
     });

@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { API_BASE_URL } from '../../services/api-config';
 
 @Component({
   selector: 'app-inventory-form',
@@ -41,7 +42,7 @@ export class InventoryFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.http.get(`http://localhost:3000/inventory/${id}`).subscribe(data => {
+      this.http.get(`${API_BASE_URL}/inventory/${id}`).subscribe(data => {
         this.item = {
       ...data,
       reorderThreshold: (data as any).reorderThreshold ?? 5
