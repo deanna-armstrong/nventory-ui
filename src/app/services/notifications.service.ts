@@ -5,8 +5,8 @@ import { API_BASE_URL } from './api-config';
 import { InventoryItem } from './inventory.service';
 
 export interface AppNotification {
-  title:  string;
-  body?:  string;
+  title: string;
+  body?: string;
   timestamp: Date;
 }
 
@@ -48,7 +48,8 @@ export class NotificationsService {
 
   /** Fetch restock suggestions from your backend */
   getRestockSuggestions(): Observable<RestockPayload> {
-    const url = `${API_BASE_URL}/inventory/restock-suggestions`;
+    // ← add `/api` and `/inventory` prefix
+    const url = `${API_BASE_URL}/api/inventory/restock-suggestions`;
     return this.http.get<RestockPayload>(url);
   }
 }
