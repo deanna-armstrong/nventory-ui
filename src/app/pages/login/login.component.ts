@@ -38,12 +38,11 @@ export class LoginComponent {
   login() {
     this.http
       .post<{ access_token: string; user: any }>(
-        `${API_BASE_URL}/auth/login`,
+        `${API_BASE_URL}/api/auth/login`,
         { email: this.email, password: this.password }
       )
       .subscribe({
         next: (response) => {
-          // Use AuthService so everyone else in the app knows you're logged in
           const token = response.access_token;
           const user: User = {
             email: response.user.email,
@@ -51,7 +50,6 @@ export class LoginComponent {
           };
           this.authService.loginSuccess(user, token);
 
-          // Go to dashboard
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {
