@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { API_BASE_URL } from '../../services/api-config';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule }    from '@angular/material/input';
+import { MatButtonModule }   from '@angular/material/button';
+
+import { InventoryService, InventoryItem } from '../../services/inventory.service';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: 'app-inventory-form',
@@ -22,18 +23,21 @@ import { API_BASE_URL } from '../../services/api-config';
     MatButtonModule
   ],
   templateUrl: './inventory-form.component.html',
+  styleUrls: ['./inventory-form.component.css']
 })
 export class InventoryFormComponent implements OnInit {
-  item: any = {
+  item: InventoryItem = {
     name: '',
     description: '',
     quantity: 0,
+    reorderThreshold: 5,
     location: ''
   };
   isEdit = false;
 
   constructor(
-    private http: HttpClient,
+    private inventorySvc: InventoryService,
+    private notifSvc: NotificationsService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -42,28 +46,40 @@ export class InventoryFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.http.get(`${API_BASE_URL}/inventory/${id}`).subscribe(data => {
-        this.item = {
-      ...data,
-      reorderThreshold: (data as any).reorderThreshold ?? 5
-    };
-      });
+      this.inventorySvc.getById(id).subscribe(
+        data => (this.item = data),
+        err => console.error('Failed to load item', err)
+      );
     }
   }
 
   saveItem() {
-    if (this.isEdit) {
-      this.http.put(`http://localhost:3000/inventory/${this.item._id}`, this.item).subscribe(() => {
-        this.router.navigate(['/items']);
-      });
+    if (this.isEdit && this.item._id) {
+      this.inventorySvc.updateInventory(this.item._id, this.item).subscribe(
+        updated => {
+          this.notifSvc.notify('Item updated', {
+            body: `Updated ${updated.name} (Qty: ${updated.quantity})`
+          });
+          this.router.navigate(['/items']);
+        },
+        err => console.error('Update failed', err)
+      );
     } else {
-      this.http.post('http://localhost:3000/inventory', this.item).subscribe(() => {
-        this.router.navigate(['/items']);
-      });
+      this.inventorySvc.createInventory(this.item).subscribe(
+        created => {
+          this.notifSvc.notify('Item created', {
+            body: `${created.name} added to inventory`
+          });
+          this.router.navigate(['/items']);
+        },
+        err => console.error('Create failed', err)
+      );
     }
   }
+
+  /** Only show form if user is admin */
   isAdmin(): boolean {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  return user?.role === 'admin';
-}
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user?.role === 'admin';
+  }
 }

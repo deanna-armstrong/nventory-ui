@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { jwtDecode } from 'jwt-decode';
+import { API_BASE_URL } from '../../services/api-config';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   login() {
-    this.http.post<any>('http://localhost:3000/auth/login', {
+    this.http.post<any>(`${API_BASE_URL}/auth/login`, {
       email: this.email,
       password: this.password,
     }).subscribe(response => {

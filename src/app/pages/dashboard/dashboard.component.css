@@ -4,96 +4,60 @@
   background-color: #f5f5f5;
 }
 
+/* Container for all the cards */
 .dashboard-container .summary-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  padding: 20px;
+  gap: 12px;
+  padding:10px;
   justify-content: center;
 }
 
+/* The base card styling */
 .dashboard-container .summary-card {
-  width: 300px;
-  height: 300px;
-  color: white;
-  padding: 10px;
-  font-weight: 500;
+  width: 325px;
+  height: 130px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: top;
+  align-items: top;
   text-align: center;
+  padding-top: 0px;
 }
 
-.dashboard-container mat-card-content {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.dashboard-container .summary-card.red-card {
+  background-color: #d32f2f;
+  color: white;
 }
 
-.dashboard-container mat-card-title {
-  font-size: 2em;
-  font-weight: 600;
-  text-align: center;
-}
-
-.dashboard-container .metric-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.dashboard-container .metric-number {
-  font-size: 3em;
-  font-weight: bold;
-  line-height: 1;
-  color: #3f51b5;
-}
-
-.dashboard-container .metric-label {
-  font-size: 1.1em;
-  margin-top: 4px;
-  color: inherit;
-}
-
-.dashboard-container .yellow-card {
-  background: #fbc02d;
+.dashboard-container .summary-card.yellow-card {
+  background-color: #fbc02d;
   color: black;
 }
 
-.dashboard-container .red-card {
-  background: #d32f2f;
+.dashboard-container .summary-card mat-card-title {
+  padding-top: 6px !important;
+  margin-bottom: 2px !important;
+  padding-bottom: 0 !important;
+  line-height: 1.1 !important;
 }
 
+.dashboard-container .summary-card mat-card-content {
+  padding-top: 6px !important;
+  margin-top: 0 !important;
+}
+
+/* Center the headings/buttons in each section */
 .dashboard-container .dashboard-section {
   padding: 10px;
-  text-align: center;
+  text-align: center;   /* makes h1 and your button center nicely */
 }
 
-.dashboard-container .notification-card {
-  margin: 8px auto;
-  max-width: 400px;
-  padding: 10px;
-  background-color: #eeeeee;
-  color: #333;
-}
-
-.inventory-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background-color: white;
-}
-
-.inventory-table th,
-.inventory-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-  color: #000; /* ensure text is visible */
-}
-
-.inventory-table {
-  border: 2px dashed red;
+/* If you also want to center the list under Notifications: */
+.dashboard-container .dashboard-section ul {
+  display: inline-block;  /* shrink-wrap the UL */
+  text-align: left;       /* keep list items left-aligned */
+  margin: 0 auto;         /* center the UL itself */
 }
