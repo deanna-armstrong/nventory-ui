@@ -2,9 +2,20 @@
   <img src="assets/logo.png" class="logo" alt="Nventory Logo" />
   <span class="brand">Nventory</span>
   <span class="spacer"></span>
-<a mat-button routerLink="/">Dashboard</a>
-<a mat-button routerLink="/items">Items</a>
-<a mat-button routerLink="/add">Add Item</a>
-<a mat-button routerLink="/login">Login</a>
-</mat-toolbar>
 
+  <a mat-button routerLink="/">Dashboard</a>
+  <a mat-button routerLink="/items">Items</a>
+  <a mat-button routerLink="/add">Add Item</a>
+
+  <!-- Show Logout + user email when logged in -->
+  <ng-container *ngIf="user$ | async as user; else showLogin">
+    <button mat-button (click)="logout()">
+      Logout • {{ user.email }}
+    </button>
+  </ng-container>
+
+  <!-- Show Login button when not logged in -->
+  <ng-template #showLogin>
+    <button mat-button routerLink="/login">Login</button>
+  </ng-template>
+</mat-toolbar>

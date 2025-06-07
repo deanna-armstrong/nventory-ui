@@ -1,20 +1,54 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { InventoryListComponent } from './pages/inventory-list/inventory-list.component';
-import { InventoryFormComponent } from './pages/inventory-form/inventory-form.component';
-import { LoginComponent } from './pages/login/login.component';
-import { NotAuthorizedComponent } from './pages/not-authorized/not-authorized.component';
-import { RegisterComponent } from './pages/register/register.component';
+
+import { LandingComponent }        from './pages/landing/landing.component';
+import { DashboardComponent }      from './pages/dashboard/dashboard.component';
+import { InventoryListComponent }  from './pages/inventory-list/inventory-list.component';
+import { InventoryFormComponent }  from './pages/inventory-form/inventory-form.component';
+import { LoginComponent }          from './pages/login/login.component';
+import { RegisterComponent }       from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { NotAuthorizedComponent }  from './pages/not-authorized/not-authorized.component';
+
+import { AuthGuard } from './services/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'items', component: InventoryListComponent },
-  { path: 'add', component: InventoryFormComponent },
-  { path: 'edit/:id', component: InventoryFormComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'not-authorized', component: NotAuthorizedComponent },
-  { path: 'register', component: RegisterComponent },
+  // Landing page (auto-redirects logged-in users to /dashboard)
+  { path: '', component: LandingComponent },
+
+  // Public routes
+  { path: 'login',           component: LoginComponent },
+  { path: 'register',        component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  
+  { path: 'not-authorized',  component: NotAuthorizedComponent },
+  { path: '',                component: LandingComponent },
+
+  // Protected routes (must be logged in)
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'items',
+    component: InventoryListComponent,
+    canActivate: [AuthGuard]
+  },
+
+  // Admin-only pages
+  {
+    path: 'add',
+    component: InventoryFormComponent,
+    canActivate: [AuthGuard],
+    data: { adminOnly: true }
+  },
+  {
+    path: 'edit/:id',
+    component: InventoryFormComponent,
+    canActivate: [AuthGuard],
+    data: { adminOnly: true }
+  },
+
+  // Catch-all — send back to landing
+  { path: '**', redirectTo: '' }
 ];
