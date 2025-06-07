@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router, RouterModule, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -9,34 +9,54 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { jwtDecode } from 'jwt-decode';
 import { API_BASE_URL } from '../../services/api-config';
+import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, RouterModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   login() {
-    this.http.post<any>(`${API_BASE_URL}/auth/login`, {
-      email: this.email,
-      password: this.password,
-    }).subscribe(response => {
-      const token = response.access_token;
-      localStorage.setItem('token', token);
+    this.http
+      .post<{ access_token: string; user: any }>(
+        `${API_BASE_URL}/auth/login`,
+        { email: this.email, password: this.password }
+      )
+      .subscribe({
+        next: (response) => {
+          // Use AuthService so everyone else in the app knows you're logged in
+          const token = response.access_token;
+          const user: User = {
+            email: response.user.email,
+            role: response.user.role,
+          };
+          this.authService.loginSuccess(user, token);
 
-      const decoded: any = jwtDecode(token);
-      const role = decoded.role;
-      localStorage.setItem('role', role);
-
-      this.router.navigate(['/']);
-    }, error => {
-      alert('Login failed');
-    });
+          // Go to dashboard
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err) => {
+          alert('Login failed: ' + (err.error?.message || err.statusText));
+        },
+      });
   }
 }
