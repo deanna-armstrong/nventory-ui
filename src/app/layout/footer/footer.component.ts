@@ -12,7 +12,8 @@ import { Observable }       from 'rxjs';
   imports: [
     CommonModule, 
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
