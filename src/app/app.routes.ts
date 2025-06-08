@@ -1,4 +1,3 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 
 import { LandingComponent }        from './pages/landing/landing.component';
@@ -13,17 +12,13 @@ import { NotAuthorizedComponent }  from './pages/not-authorized/not-authorized.c
 import { AuthGuard } from './services/auth.guard';
 
 export const routes: Routes = [
-  // Landing page (auto-redirects logged-in users to /dashboard)
   { path: '', component: LandingComponent },
 
-  // Public routes
   { path: 'login',           component: LoginComponent },
   { path: 'register',        component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'not-authorized',  component: NotAuthorizedComponent },
-  { path: '',                component: LandingComponent },
 
-  // Protected routes (must be logged in)
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -35,7 +30,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
-  // Admin-only pages
   {
     path: 'add',
     component: InventoryFormComponent,
@@ -49,6 +43,5 @@ export const routes: Routes = [
     data: { adminOnly: true }
   },
 
-  // Catch-all — send back to landing
   { path: '**', redirectTo: '' }
 ];
