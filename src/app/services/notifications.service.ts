@@ -48,7 +48,7 @@ export class NotificationsService {
   /** Fetch restock suggestions from your backend */
   getRestockSuggestions(): Observable<RestockPayload> {
   
-    const url = `${API_BASE_URL}/api/inventory/restock-suggestions`;
+    const url = `${API_BASE_URL}/inventory/restock-suggestions`;
     return this.http.get<RestockPayload>(url);
   }
 }

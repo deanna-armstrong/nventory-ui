@@ -16,8 +16,7 @@ export interface InventoryItem {
   providedIn: 'root'
 })
 export class InventoryService {
-  // ← include `/api` so it matches your Nest prefix
-  private base = `${API_BASE_URL}/api/inventory`;
+  private base = `${API_BASE_URL}/inventory`;
 
   constructor(private http: HttpClient) {}
 

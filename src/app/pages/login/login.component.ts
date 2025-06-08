@@ -21,7 +21,7 @@ import { AuthService, User } from '../../services/auth.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './login.component.html',
 })
@@ -38,7 +38,7 @@ export class LoginComponent {
   login() {
     this.http
       .post<{ access_token: string; user: any }>(
-        `${API_BASE_URL}/api/auth/login`,
+        `${API_BASE_URL}/auth/login`,
         { email: this.email, password: this.password }
       )
       .subscribe({
