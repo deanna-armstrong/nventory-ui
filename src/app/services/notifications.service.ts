@@ -28,7 +28,6 @@ export class NotificationsService {
     }
   }
 
-  /** Push an in-browser notification and record it locally */
   notify(title: string, options?: NotificationOptions) {
     const note: AppNotification = {
       title,
@@ -48,7 +47,7 @@ export class NotificationsService {
 
   /** Fetch restock suggestions from your backend */
   getRestockSuggestions(): Observable<RestockPayload> {
-    // ← add `/api` and `/inventory` prefix
+  
     const url = `${API_BASE_URL}/api/inventory/restock-suggestions`;
     return this.http.get<RestockPayload>(url);
   }
