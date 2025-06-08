@@ -1,4 +1,3 @@
-// src/app/layout/header/header.component.ts
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,8 +10,7 @@ import { Observable }       from 'rxjs';
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule,     // <-- enables *ngIf and async pipe
-    RouterModule,
+    CommonModule, 
     MatToolbarModule,
     MatButtonModule
   ],

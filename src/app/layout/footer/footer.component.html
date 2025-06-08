@@ -5,5 +5,13 @@
   <a mat-button routerLink="/">Dashboard</a>
   <a mat-button routerLink="/items">Items</a>
   <a mat-button routerLink="/add">Add Item</a>
-  <a mat-button routerLink="/login">Login</a>
+  <ng-container *ngIf="user$ | async as user; else showLogin">
+    <button mat-button (click)="logout()">
+      Logout • {{ user.email }}
+    </button>
+  </ng-container>
+
+  <ng-template #showLogin>
+    <button mat-button routerLink="/login">Login</button>
+  </ng-template>
 </mat-toolbar>
