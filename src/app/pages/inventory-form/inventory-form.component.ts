@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule }    from '@angular/material/input';
 import { MatButtonModule }   from '@angular/material/button';
+import { HeaderComponent } from '../../layout/header/header.component';
+import { FooterComponent } from '../../layout/footer/footer.component';
 
 import { InventoryService, InventoryItem } from '../../services/inventory.service';
 import { NotificationsService } from '../../services/notifications.service';
@@ -20,7 +22,9 @@ import { NotificationsService } from '../../services/notifications.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    HeaderComponent,
+    FooterComponent,
   ],
   templateUrl: './inventory-form.component.html',
   styleUrls: ['./inventory-form.component.css']

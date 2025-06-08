@@ -11,6 +11,8 @@ import { MatDividerModule }  from '@angular/material/divider';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule }    from '@angular/material/input';
 import { FormsModule }       from '@angular/forms';
+import { HeaderComponent } from '../../layout/header/header.component';
+import { FooterComponent } from '../../layout/footer/footer.component';
 
 import { InventoryService, InventoryItem } from '../../services/inventory.service';
 import {
@@ -34,7 +36,9 @@ import { Observable } from 'rxjs';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    HeaderComponent,
+    FooterComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
