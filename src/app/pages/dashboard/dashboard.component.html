@@ -3,7 +3,6 @@
 
 <div class="dashboard-container">
 
-  <!-- Urgent Items (Red) -->
   <div class="summary-cards" *ngIf="urgentItems.length > 0">
     <mat-card class="summary-card red-card" *ngFor="let item of urgentItems">
       <mat-card-title>URGENT: {{ item.name }}</mat-card-title>
@@ -15,7 +14,6 @@
     </mat-card>
   </div>
 
-  <!-- Warning Items (Yellow) -->
   <div class="summary-cards" *ngIf="warningItems.length > 0">
     <mat-card class="summary-card yellow-card" *ngFor="let item of warningItems">
       <mat-card-title>WARNING: {{ item.name }}</mat-card-title>

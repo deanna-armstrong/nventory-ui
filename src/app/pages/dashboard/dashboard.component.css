@@ -4,7 +4,6 @@
   background-color: #f5f5f5;
 }
 
-/* Container for all the cards */
 .dashboard-container .summary-cards {
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +12,6 @@
   justify-content: center;
 }
 
-/* The base card styling */
 .dashboard-container .summary-card {
   width: 325px;
   height: 130px;
@@ -49,15 +47,13 @@
   margin-top: 0 !important;
 }
 
-/* Center the headings/buttons in each section */
 .dashboard-container .dashboard-section {
   padding: 10px;
-  text-align: center;   /* makes h1 and your button center nicely */
+  text-align: center;
 }
 
-/* If you also want to center the list under Notifications: */
 .dashboard-container .dashboard-section ul {
-  display: inline-block;  /* shrink-wrap the UL */
-  text-align: left;       /* keep list items left-aligned */
-  margin: 0 auto;         /* center the UL itself */
+  display: inline-block; 
+  text-align: left; 
+  margin: 0 auto; 
 }
