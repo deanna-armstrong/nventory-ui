@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { environment } from '../../../../../nventory-api/src/auth/environments/environment.prod';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,12 @@ export class RegisterComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   register() {
+  this.http.post(`${environment.apiUrl}/auth/register`, {
+  email: this.email,
+  password: this.password,
+  role: this.role
+  });
+
     this.http.post('http://localhost:3000/auth/register', {
       email: this.email,
       password: this.password,
