@@ -7,7 +7,6 @@ import { provideRouter } from '@angular/router';
 
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
-import { AuthInterceptor } from './app/services/auth-interceptor';
 import { routes } from './app/app.routes';
 import { authInterceptor } from './app/auth/auth-interceptor';
 

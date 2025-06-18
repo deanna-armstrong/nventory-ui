@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,10 @@ export class RegisterComponent {
   password = '';
   role = 'user';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   register() {
     if (!this.email || !this.password) {
@@ -40,7 +44,18 @@ export class RegisterComponent {
       password: this.password,
       role: this.role
     }).subscribe({
-      error: () => alert('Registration failed. Try a different email or check your connection.')
+      next: (response) => {
+        alert('Registration successful! Redirecting to login...');
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        if (err.status === 409 || (err.error?.message?.includes('exists') || err.error?.errmsg?.includes('duplicate key'))) {
+          alert('This email is already registered.');
+        } else {
+          alert('Registration failed: ' + (err.error?.message || err.statusText));
+        }
+      }
     });
   }
 }
