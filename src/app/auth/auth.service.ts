@@ -15,6 +15,7 @@ export interface User {
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
@@ -27,6 +28,8 @@ export class AuthService {
       tap((res: any) => {
         if (res?.access_token) {
           localStorage.setItem('token', res.access_token);
+          localStorage.setItem('userEmail', userData.email);
+          localStorage.setItem('userRole', userData.role);
           this.currentUserSubject.next({ email: userData.email, role: userData.role });
           this.router.navigate(['/dashboard']);
         }
@@ -39,7 +42,13 @@ export class AuthService {
       tap((res: any) => {
         if (res?.access_token) {
           localStorage.setItem('token', res.access_token);
-          this.currentUserSubject.next({ email: credentials.email, role: res.user?.role || 'user' });
+          const email = credentials.email;
+          const role = res.user?.role || 'user';
+
+          localStorage.setItem('userEmail', email);
+          localStorage.setItem('userRole', role);
+
+          this.currentUserSubject.next({ email, role });
           this.router.navigate(['/dashboard']);
         }
       })
@@ -48,6 +57,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userRole');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
@@ -60,15 +71,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  loadUserFromStorage() {
+  private loadUserFromStorage() {
     const token = this.getToken();
-    if (token) {
+    const email = localStorage.getItem('userEmail');
+    const role = localStorage.getItem('userRole');
 
-      const storedEmail = localStorage.getItem('userEmail');
-      const storedRole = localStorage.getItem('userRole');
-      if (storedEmail && storedRole) {
-        this.currentUserSubject.next({ email: storedEmail, role: storedRole });
-      }
+    if (token && email && role) {
+      this.currentUserSubject.next({ email, role });
     }
   }
 }
