@@ -18,7 +18,7 @@ import { AuthService } from '../../auth/auth.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './login.component.html',
 })
@@ -26,7 +26,7 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   login() {
     if (!this.email || !this.password) {
@@ -34,13 +34,9 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login({
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      error: (err) => {
-        alert('Login failed: ' + (err.error?.message || err.statusText));
-      }
-    });
+    this.auth.login({ email: this.email, password: this.password })
+      .subscribe({
+        error: err => alert('Login failed: ' + (err.error?.message || err.statusText))
+      });
   }
 }

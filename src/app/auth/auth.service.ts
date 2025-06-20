@@ -10,27 +10,22 @@ export interface User {
   role: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
   private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadUserFromStorage();
   }
 
   register(userData: { email: string; password: string; role: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/register`, userData).pipe(
-      tap((res: any) => {
-        if (res?.access_token) {
-          localStorage.setItem('token', res.access_token);
-          localStorage.setItem('userEmail', userData.email);
-          localStorage.setItem('userRole', userData.role);
-          this.currentUserSubject.next({ email: userData.email, role: userData.role });
+    return this.http.post<{ access_token: string }>(`${this.apiUrl}/auth/register`, userData).pipe(
+      tap(res => {
+        if (res.access_token) {
+          this.setSession(userData.email, userData.role, res.access_token);
           this.router.navigate(['/dashboard']);
         }
       })
@@ -38,24 +33,17 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials).pipe(
-      tap((res: any) => {
-        if (res?.access_token) {
-          localStorage.setItem('token', res.access_token);
-          const email = credentials.email;
-          const role = res.user?.role || 'user';
-
-          localStorage.setItem('userEmail', email);
-          localStorage.setItem('userRole', role);
-
-          this.currentUserSubject.next({ email, role });
+    return this.http.post<{ access_token: string; user: User }>(`${this.apiUrl}/auth/login`, credentials).pipe(
+      tap(res => {
+        if (res.access_token && res.user) {
+          this.setSession(res.user.email, res.user.role, res.access_token);
           this.router.navigate(['/dashboard']);
         }
       })
     );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userRole');
@@ -66,16 +54,26 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+  // alias for your guard
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  isAdmin(): boolean {
+    return this.currentUserSubject.value?.role === 'admin';
+  }
+
+  private setSession(email: string, role: string, token: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userRole', role);
+    this.currentUserSubject.next({ email, role });
   }
 
   private loadUserFromStorage() {
-    const token = this.getToken();
+    const token = localStorage.getItem('token');
     const email = localStorage.getItem('userEmail');
-    const role = localStorage.getItem('userRole');
-
+    const role  = localStorage.getItem('userRole');
     if (token && email && role) {
       this.currentUserSubject.next({ email, role });
     }

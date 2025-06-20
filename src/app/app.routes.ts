@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { LandingComponent }        from './pages/landing/landing.component';
 import { DashboardComponent }      from './pages/dashboard/dashboard.component';
 import { InventoryListComponent }  from './pages/inventory-list/inventory-list.component';
@@ -10,6 +9,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { NotAuthorizedComponent }  from './pages/not-authorized/not-authorized.component';
 
 import { AuthGuard } from './services/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -29,18 +29,15 @@ export const routes: Routes = [
     component: InventoryListComponent,
     canActivate: [AuthGuard]
   },
-
   {
     path: 'add',
     component: InventoryFormComponent,
-    canActivate: [AuthGuard],
-    data: { adminOnly: true }
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'edit/:id',
     component: InventoryFormComponent,
-    canActivate: [AuthGuard],
-    data: { adminOnly: true }
+    canActivate: [AuthGuard, AdminGuard]
   },
 
   { path: '**', redirectTo: '' }

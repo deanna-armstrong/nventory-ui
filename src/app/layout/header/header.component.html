@@ -9,7 +9,7 @@
 
   <ng-container *ngIf="user$ | async as user; else showLogin">
     <button mat-button (click)="logout()">
-      Logout • {{ user.email }}
+      Logout &bull; {{ user.email }}
     </button>
   </ng-container>
 
