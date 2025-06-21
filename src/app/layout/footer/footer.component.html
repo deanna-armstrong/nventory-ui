@@ -1,18 +1,26 @@
 <mat-toolbar class="footer-toolbar">
+  <!-- Brand logo aligned to the left -->
   <img src="assets/logo.png" class="logo" alt="Nventory Logo" />
+
+  <!-- Application name with electric green accent -->
   <span class="brand">Nventory</span>
+
+  <!-- Flexible spacer pushes navigation items to the right -->
   <span class="spacer"></span>
 
+  <!-- Primary navigation links -->
   <a mat-button routerLink="/">Dashboard</a>
   <a mat-button routerLink="/items">Items</a>
   <a mat-button routerLink="/add">Add Item</a>
 
+  <!-- Show logout button and user email when authenticated -->
   <ng-container *ngIf="user$ | async as user; else showLogin">
     <button mat-button (click)="logout()">
       Logout &bull; {{ user.email }}
     </button>
   </ng-container>
 
+  <!-- Fallback template: show Login button if not authenticated -->
   <ng-template #showLogin>
     <button mat-button routerLink="/login">Login</button>
   </ng-template>

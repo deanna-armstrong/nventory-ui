@@ -1,29 +1,62 @@
 <div class="page-wrapper">
+  <!-- Card container for the registration form -->
   <mat-card class="form-card">
+    <!-- Card header with the Register title -->
     <mat-card-header>
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
+
+    <!-- Card content wrapping the form fields -->
     <mat-card-content>
+      <!-- Template-driven form; calls register() on submit -->
       <form (ngSubmit)="register()" #registerForm="ngForm">
+        <!-- Email input field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput type="email" name="email" [(ngModel)]="email" required />
+          <!-- Two-way binding to email property; required for form validation -->
+          <input
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
         </mat-form-field>
 
+        <!-- Password input field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
-          <input matInput type="password" name="password" [(ngModel)]="password" required />
+          <!-- Two-way binding to password property; required for form validation -->
+          <input
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
         </mat-form-field>
 
+        <!-- Role selection dropdown -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Role</mat-label>
+          <!-- Two-way binding to role property; required to ensure a selection -->
           <mat-select [(ngModel)]="role" name="role" required>
+            <!-- Option for a standard user -->
             <mat-option value="user">User</mat-option>
+            <!-- Option for an administrator -->
             <mat-option value="admin">Admin</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" class="full-width">Register</button>
+        <!-- Submit button spans full width for prominence -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width"
+        >
+          Register
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

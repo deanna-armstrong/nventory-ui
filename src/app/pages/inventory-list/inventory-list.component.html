@@ -1,57 +1,82 @@
 <app-header></app-header>
 <app-footer></app-footer>
+
+<!-- Main wrapper for the inventory list page -->
 <div class="page-wrapper inventory-wrapper">
   <div class="content-wrapper">
-  <mat-card class="form-card">
-    <mat-card-header>
-      <mat-card-title>Inventory</mat-card-title>
-    </mat-card-header>
+    <mat-card class="form-card">
+      <!-- Card header with page title -->
+      <mat-card-header>
+        <mat-card-title>Inventory</mat-card-title>
+      </mat-card-header>
 
-    <mat-card-content>
-      <div class="inventory-search">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Search</mat-label>
-          <input matInput
-                 placeholder="Enter item name or description"
-                 [(ngModel)]="searchQuery">
-        </mat-form-field>
-        <button mat-raised-button
-                color="primary"
-                (click)="searchInventory()">Search</button>
-      </div>
+      <mat-card-content>
+        <!-- Search bar section -->
+        <div class="inventory-search">
+          <mat-form-field appearance="outline" class="full-width">
+            <!-- Label for the search input -->
+            <mat-label>Search</mat-label>
+            <!-- Two-way bound input for filtering by name or description -->
+            <input
+              matInput
+              placeholder="Enter item name or description"
+              [(ngModel)]="searchQuery"
+            />
+          </mat-form-field>
+          <!-- Trigger the search action on click -->
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="searchInventory()"
+          >
+            Search
+          </button>
+        </div>
 
-      <table class="inventory-table" *ngIf="filteredInventory.length">
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Reorder Threshold</th> <!-- ADD THIS -->
-          <th>Location</th>
-          <th *ngIf="isAdmin()">Actions</th>
-        </tr>
-        <tr *ngFor="let item of filteredInventory">
-          <td>{{ item.name }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.reorderThreshold }}</td> <!-- ADD THIS -->
-          <td>{{ item.location }}</td>
-          <td *ngIf="isAdmin()">
-            <button mat-button
-                    color="accent"
-                    [routerLink]="['/edit', item._id]">
-              Edit
-            </button>
-            <button mat-button
-                    color="warn"
-                    (click)="deleteItem(item._id)">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </table>
+        <!-- Inventory table: only shown when there are results -->
+        <table class="inventory-table" *ngIf="filteredInventory.length">
+          <tr>
+            <!-- Table column headers -->
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Reorder Threshold</th> <!-- New column for reorder threshold -->
+            <th>Location</th>
+            <!-- Conditionally show actions column for admins -->
+            <th *ngIf="isAdmin()">Actions</th>
+          </tr>
+          <!-- Loop through filtered inventory items -->
+          <tr *ngFor="let item of filteredInventory">
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.reorderThreshold }}</td> <!-- Display reorder threshold -->
+            <td>{{ item.location }}</td>
+            <!-- Admin-only action buttons -->
+            <td *ngIf="isAdmin()">
+              <!-- Navigate to the edit form for this item -->
+              <button
+                mat-button
+                color="accent"
+                [routerLink]="['/edit', item._id]"
+              >
+                Edit
+              </button>
+              <!-- Delete this item when clicked -->
+              <button
+                mat-button
+                color="warn"
+                (click)="deleteItem(item._id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </table>
 
-      <p *ngIf="!filteredInventory.length">No items found.</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+        <!-- Fallback message when no items match the search -->
+        <p *ngIf="!filteredInventory.length">No items found.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

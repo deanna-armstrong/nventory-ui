@@ -1,17 +1,23 @@
+/* Dashboard main container */
+/* Adds space at top to account for fixed header, ensures content spans beyond one viewport, and sets a light gray background */
 .dashboard-container {
   margin-top: 100px;
   height: 200vh;
   background-color: #f5f5f5;
 }
 
+/* Summary cards wrapper */
+/* Uses flex layout to wrap cards responsively, with consistent gaps and centered alignment */
 .dashboard-container .summary-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding:10px;
+  padding: 10px;
   justify-content: center;
 }
 
+/* Individual summary card */
+/* Fixed size with shadow for depth, vertical flex layout, and centered text */
 .dashboard-container .summary-card {
   width: 325px;
   height: 130px;
@@ -19,22 +25,28 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: top;
-  align-items: top;
+  justify-content: flex-start; /* Align content to top */
+  align-items: center;         /* Center horizontally */
   text-align: center;
-  padding-top: 0px;
+  padding-top: 0;
 }
 
+/* Urgent (red) summary card */
+/* Red background with white text for high-priority metrics */
 .dashboard-container .summary-card.red-card {
   background-color: #d32f2f;
   color: white;
 }
 
+/* Warning (yellow) summary card */
+/* Yellow background with dark text for mid-priority metrics */
 .dashboard-container .summary-card.yellow-card {
   background-color: #fbc02d;
   color: black;
 }
 
+/* Card title styling adjustments */
+/* Tightens spacing above and below titles for compact layout */
 .dashboard-container .summary-card mat-card-title {
   padding-top: 6px !important;
   margin-bottom: 2px !important;
@@ -42,18 +54,24 @@
   line-height: 1.1 !important;
 }
 
+/* Card content styling adjustments */
+/* Adds vertical padding for readability */
 .dashboard-container .summary-card mat-card-content {
   padding-top: 6px !important;
   margin-top: 0 !important;
 }
 
+/* Generic dashboard section wrapper */
+/* Consistent padding and center-aligned headings/content */
 .dashboard-container .dashboard-section {
   padding: 10px;
   text-align: center;
 }
 
+/* List styling within dashboard sections */
+/* Centers the list block and left-aligns its items */
 .dashboard-container .dashboard-section ul {
-  display: inline-block; 
-  text-align: left; 
-  margin: 0 auto; 
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
 }

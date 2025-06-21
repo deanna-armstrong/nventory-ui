@@ -1,24 +1,62 @@
-<div class="page-wrapper"> 
+<div class="page-wrapper">
+  <!-- Card container for the login form -->
   <mat-card class="form-card">
-        <mat-card-header>
-          <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+    <!-- Card header with title -->
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+
+    <!-- Card content wrapping the form -->
+    <mat-card-content>
+      <!-- Template-driven form; calls login() on submit -->
       <form class="login-form" (ngSubmit)="login()">
+        <!-- Email input field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput type="email" [(ngModel)]="email" name="email" required autocomplete="email" />
+          <!-- Two-way binding to `email`, required and auto-completes for user convenience -->
+          <input
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+            autocomplete="email"
+          />
         </mat-form-field>
 
+        <!-- Password input field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
-          <input matInput type="password" [(ngModel)]="password" name="password" required autocomplete="current-password" />
+          <!-- Two-way binding to `password`, required with secure auto-complete -->
+          <input
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            autocomplete="current-password"
+          />
         </mat-form-field>
 
+        <!-- Action buttons and links -->
         <div class="login-actions">
-          <button mat-raised-button color="primary" class="full-width" type="submit">Login</button>
-          <a class="forgot-password" routerLink="/forgot-password">Forgot Password?</a>
-          <a class="register-link" routerLink="/register">Create Account</a>
+          <!-- Submit button spans full width for prominence -->
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width"
+            type="submit"
+          >
+            Login
+          </button>
+          <!-- Link to the password recovery page -->
+          <a class="forgot-password" routerLink="/forgot-password">
+            Forgot Password?
+          </a>
+          <!-- Link to the registration page -->
+          <a class="register-link" routerLink="/register">
+            Create Account
+          </a>
         </div>
       </form>
     </mat-card-content>

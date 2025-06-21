@@ -1,12 +1,27 @@
 <div class="landing-container">
+  <!-- Main welcome heading for the landing page -->
   <h1>Welcome to Nventory</h1>
+
+  <!-- Subheading/description to briefly explain the app’s purpose -->
   <p>Your one‐stop app for inventory management.</p>
 
+  <!-- Action buttons container: centered flex layout -->
   <div class="actions">
-    <button mat-raised-button color="primary" (click)="goLogin()">
+    <!-- Primary action: navigate to the login page -->
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="goLogin()"
+    >
       Log In
     </button>
-    <button mat-stroked-button color="accent" (click)="goRegister()">
+
+    <!-- Secondary action: navigate to the registration page -->
+    <button
+      mat-stroked-button
+      color="accent"
+      (click)="goRegister()"
+    >
       Register
     </button>
   </div>

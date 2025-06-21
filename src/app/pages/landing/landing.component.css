@@ -1,27 +1,35 @@
+/* Container for the landing page content */
+/* Centers text, limits width, and adds vertical spacing */
 .landing-container {
-  text-align: center;
-  margin: 100px auto;
-  max-width: 400px;
-  padding: 1rem;
+  text-align: center;     /* Center-align all text inside */
+  margin: 100px auto;     /* 100px top/bottom margin, auto left/right */
+  max-width: 400px;       /* Constrain width for readability */
+  padding: 1rem;          /* Inner padding around content */
 }
 
+/* Main heading styling within the landing container */
 .landing-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;      /* Prominent, large heading */
+  margin-bottom: 0.5rem;  /* Space below heading before paragraph */
 }
 
+/* Paragraph styling within the landing container */
 .landing-container p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: #555;
+  font-size: 1.1rem;      /* Slightly larger than default for readability */
+  margin-bottom: 2rem;    /* Extra space before action buttons */
+  color: #555;            /* Soft dark gray for subtle contrast */
 }
 
+/* Button group container */
+/* Uses flex layout to center buttons and add spacing between them */
 .actions {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 1rem;               /* Uniform gap between buttons */
 }
 
+/* Individual action button overrides */
+/* Ensures a minimum width for consistent button sizing */
 .actions button {
   min-width: 120px;
 }

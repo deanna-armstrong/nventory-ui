@@ -1,18 +1,27 @@
 <mat-toolbar class="header-toolbar">
+  <!-- Company logo on the far left, linked to assets folder -->
   <img src="assets/logo.png" class="logo" alt="Nventory Logo" />
+
+  <!-- Application name with electric green accent for brand recognition -->
   <span class="brand">Nventory</span>
+
+  <!-- Flexible spacer pushes the navigation links and user actions to the right -->
   <span class="spacer"></span>
 
+  <!-- Primary navigation links for logged-in users -->
   <a mat-button routerLink="/dashboard">Dashboard</a>
   <a mat-button routerLink="/items">Items</a>
   <a mat-button routerLink="/add">Add Item</a>
 
+  <!-- Show logout button and email when the user is authenticated -->
   <ng-container *ngIf="user$ | async as user; else showLogin">
     <button mat-button (click)="logout()">
+      <!-- Bullet separator and dynamic user email -->
       Logout &bull; {{ user.email }}
     </button>
   </ng-container>
 
+  <!-- Fallback when no user is logged in: display a Login button -->
   <ng-template #showLogin>
     <button mat-button routerLink="/login">Login</button>
   </ng-template>

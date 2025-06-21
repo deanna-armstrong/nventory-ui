@@ -1,39 +1,85 @@
 <app-header></app-header>
 <app-footer></app-footer>
+
 <div class="page-wrapper">
+  <!-- Card container for Add/Edit Item form -->
   <mat-card class="form-card">
+    <!-- Card header with dynamic title -->
     <mat-card-header>
       <mat-card-title>Add / Edit Item</mat-card-title>
     </mat-card-header>
+
+    <!-- Placeholder for future inventory search functionality -->
     <div class="inventory-search"></div>
-        <mat-card-content>
+
+    <mat-card-content>
+      <!-- Template-driven form; calls saveItem() on submit -->
       <form (ngSubmit)="saveItem()" #itemForm="ngForm">
-        <mat-form-field appearance="outline" class="full-width" >
+        <!-- Item Name input: required field -->
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Item Name</mat-label>
-          <input matInput name="name" [(ngModel)]="item.name" required />
+          <input
+            matInput
+            name="name"
+            [(ngModel)]="item.name"
+            required
+          />
         </mat-form-field>
 
+        <!-- Description input: optional field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Description</mat-label>
-          <input matInput name="description" [(ngModel)]="item.description" />
+          <input
+            matInput
+            name="description"
+            [(ngModel)]="item.description"
+          />
         </mat-form-field>
 
+        <!-- Quantity input: required numeric field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Quantity</mat-label>
-          <input matInput type="number" name="quantity" [(ngModel)]="item.quantity" required />
+          <input
+            matInput
+            type="number"
+            name="quantity"
+            [(ngModel)]="item.quantity"
+            required
+          />
         </mat-form-field>
 
+        <!-- Reorder Threshold input: required, non-negative numeric field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Reorder Threshold</mat-label>
-          <input matInput type="number" name="reorderThreshold" [(ngModel)]="item.reorderThreshold" required min="0" />
+          <input
+            matInput
+            type="number"
+            name="reorderThreshold"
+            [(ngModel)]="item.reorderThreshold"
+            required
+            min="0"
+          />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width" >
+        <!-- Location input: optional text field -->
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Location</mat-label>
-          <input matInput name="location" [(ngModel)]="item.location" />
+          <input
+            matInput
+            name="location"
+            [(ngModel)]="item.location"
+          />
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" class="full-width">Save</button>
+        <!-- Submit button: spans full width for prominence -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width"
+        >
+          Save
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

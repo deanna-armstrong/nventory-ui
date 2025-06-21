@@ -1,12 +1,17 @@
 <app-header></app-header>
 <app-footer></app-footer>
 
+<!-- Dashboard main container: holds all dashboard sections and ensures styling context -->
 <div class="dashboard-container">
 
+  <!-- Urgent restock cards section: only displayed if there are urgent items -->
   <div class="summary-cards" *ngIf="urgentItems.length > 0">
+    <!-- Loop through each urgent item and render a red-highlighted card -->
     <mat-card class="summary-card red-card" *ngFor="let item of urgentItems">
+      <!-- Card title emphasizes URGENT state and item name -->
       <mat-card-title>URGENT: {{ item.name }}</mat-card-title>
       <mat-card-content>
+        <!-- Display item details for quick reference -->
         <div>{{ item.description }}</div>
         <div>Qty: {{ item.quantity }}</div>
         <div>Location: {{ item.location }}</div>
@@ -14,10 +19,14 @@
     </mat-card>
   </div>
 
+  <!-- Warning restock cards section: only displayed if there are warning items -->
   <div class="summary-cards" *ngIf="warningItems.length > 0">
+    <!-- Loop through each warning item and render a yellow-highlighted card -->
     <mat-card class="summary-card yellow-card" *ngFor="let item of warningItems">
+      <!-- Card title indicates WARNING state and item name -->
       <mat-card-title>WARNING: {{ item.name }}</mat-card-title>
       <mat-card-content>
+        <!-- Display item details for quick reference -->
         <div>{{ item.description }}</div>
         <div>Qty: {{ item.quantity }}</div>
         <div>Location: {{ item.location }}</div>
@@ -25,20 +34,26 @@
     </mat-card>
   </div>
 
+  <!-- Divider between summary cards and subsequent sections -->
   <mat-divider></mat-divider>
 
+  <!-- Recent Inventory Activity section: quick link to full inventory view -->
   <div class="dashboard-section">
     <h1>Recent Inventory Activity</h1>
+    <!-- Elevated button for navigation -->
     <a mat-raised-button color="accent" routerLink="/items">View Inventory</a>
   </div>
 
   <mat-divider></mat-divider>
 
+  <!-- Notifications section: displays most recent notifications -->
   <div class="dashboard-section">
     <h1>Notifications</h1>
     <ul>
+      <!-- Async pipe to automatically update list when notifications change -->
       <li *ngFor="let note of notifications$ | async">
         <strong>{{ note.title }}</strong>
+        <!-- Conditionally show the body if present -->
         <div *ngIf="note.body">{{ note.body }}</div>
         <small>{{ note.timestamp | date:'short' }}</small>
       </li>
@@ -47,22 +62,27 @@
 
   <mat-divider></mat-divider>
 
+  <!-- Search Inventory section: allows users to query items by name -->
   <div class="dashboard-section">
     <h1>Search Inventory</h1>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Search</mat-label>
+      <!-- Two-way binding for search query input -->
       <input
         matInput
         [(ngModel)]="searchQuery"
         placeholder="Enter item name"
       />
     </mat-form-field>
+    <!-- Trigger search function on click -->
     <button mat-raised-button color="primary" (click)="searchInventory()">
       Search
     </button>
   </div>
 
+  <!-- Search results section: only shown after a search has been performed -->
   <div *ngIf="searchPerformed">
+    <!-- Inventory table: displayed if any results match -->
     <table class="inventory-table" *ngIf="filteredInventory.length > 0">
       <tr>
         <th>Name</th>
@@ -70,6 +90,7 @@
         <th>Quantity</th>
         <th>Location</th>
       </tr>
+      <!-- Loop through filtered results -->
       <tr *ngFor="let item of filteredInventory">
         <td>{{ item.name }}</td>
         <td>{{ item.description }}</td>
@@ -78,6 +99,7 @@
       </tr>
     </table>
 
+    <!-- No-results message if the search yielded nothing -->
     <p *ngIf="filteredInventory.length === 0" class="no-results">
       No items found.
     </p>

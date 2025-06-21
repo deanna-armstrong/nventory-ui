@@ -1,28 +1,34 @@
+/* Footer toolbar styling: fixed height, dark background, light text */
 .footer-toolbar {
   height: 100px;
   background: black;
   color: white;
 }
 
+/* Logo image sizing and spacing */
 .logo {
-  height: 100px;
-  margin-right: 15px;
+  height: 100px;     /* Match footer height for vertical alignment */
+  margin-right: 15px; /* Space between logo and brand name */
 }
 
+/* Brand name styling: prominent, bold, and electric green accent */
 .brand {
   font-size: 20px;
   font-weight: bold;
-  color: #00ff5e; /* electric green */
+  color: #00ff5e; /* Electric green for high visibility */
 }
 
+/* Flexible spacer to push items to the edges in a flex container */
 .spacer {
   flex: 1 1 auto;
 }
 
+/* Mat-button link default text color */
 a[mat-button] {
   color: white;
 }
 
+/* Hover state for mat-button links: electric green accent */
 a[mat-button]:hover {
   color: #00ff5e;
 }

@@ -1,0 +1,41 @@
+<div class="notifications-container">
+  <!-- Section header for the notifications panel -->
+  <h2>Notifications</h2>
+
+  <!-- List all notifications -->
+  <ul>
+    <!-- Iterate over the notifications array provided by the component -->
+    <li *ngFor="let note of notifications">
+      <!-- Display the notification title in bold for emphasis -->
+      <strong>{{ note.title }}</strong>
+
+      <!-- Conditionally render the body if it exists -->
+      <div *ngIf="note.body">
+        {{ note.body }}
+      </div>
+
+      <!-- Show timestamp, formatted as a short date/time -->
+      <small>{{ note.timestamp | date:'short' }}</small>
+    </li>
+  </ul>
+
+  <!-- Section for items needing urgent restocking -->
+  <h3>Urgent Restock</h3>
+  <ul>
+    <!-- Iterate over the urgent restock items -->
+    <li *ngFor="let item of urgent">
+      <!-- Display item name and remaining quantity -->
+      {{ item.name }} ({{ item.quantity }} left)
+    </li>
+  </ul>
+
+  <!-- Section for items at warning stock levels -->
+  <h3>Warning Level</h3>
+  <ul>
+    <!-- Iterate over the warning-level restock items -->
+    <li *ngFor="let item of warning">
+      <!-- Display item name and remaining quantity -->
+      {{ item.name }} ({{ item.quantity }} left)
+    </li>
+  </ul>
+</div>
